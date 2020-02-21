@@ -1,0 +1,26 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AlogWorkerService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="lastBackup" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">02/18/2020 11:24:00</Value>
+    </Setting>
+    <Setting Name="conString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=localhost;Initial Catalog=amDB;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=localhost;Initial Catalog=amDB;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="accountSid" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AC0641c3363901b6a8971d7c23937528cb</Value>
+    </Setting>
+    <Setting Name="authToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c7378099baee0d25254262622d34f8fa</Value>
+    </Setting>
+    <Setting Name="fromPhone" Type="System.String" Scope="User">
+      <Value Profile="(Default)">"+12015846173"</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
