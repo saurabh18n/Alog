@@ -196,9 +196,9 @@ namespace AManager
                     text_LastName.Text = (string)row[1];
                     datePicker_DoB.Value = Convert.ToDateTime(row[2]);
                     cb_classSelect.SelectedValue = Convert.ToInt16(row[3]);
-                    text_ParentMobile.Text = (string)row["s_parentmobile"];
+                    text_ParentMobile.Text = ((string)row["s_parentmobile"]).Replace("+972","");
                     text_parentName.Text = (string)row["s_parentname"];
-                    text_homePhone.Text = (string)row["s_homephone"];
+                    text_homePhone.Text = ((string)row["s_homephone"]).Replace("+972","");
                     text_Address.Text = (string)row["s_address"];
                 }
                 else
@@ -575,7 +575,7 @@ namespace AManager
                     return false;
                 }
 
-                if (text_ParentMobile.Text.Length > 9 && text_ParentMobile.Text.All(char.IsDigit))
+                if (text_ParentMobile.Text.Length > 6 && text_ParentMobile.Text.All(char.IsDigit))
                 {
                     flag = true;
                 }
@@ -585,7 +585,7 @@ namespace AManager
                     return false;
                 }
 
-                if (text_homePhone.Text.Length > 9 && text_homePhone.Text.All(char.IsDigit))
+                if (text_homePhone.Text.Length > 6 && text_homePhone.Text.All(char.IsDigit))
                 {
                     flag = true;
                 }

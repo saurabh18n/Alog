@@ -7,7 +7,7 @@ using System.IO;
 using System.Drawing;
 using System.Text.RegularExpressions;
 
-namespace AlogService
+namespace AlogMachineService
 {    
     public class SDKHelper
     {
@@ -456,8 +456,7 @@ namespace AlogService
         #region UserInfo
 
         public bool DeleteUser(string enrollNumber)
-        {
-            
+        {            
             int idwErrorCode = 0;
             int iBackupNumber = 12;
             bool returnStatus = false;
@@ -675,6 +674,7 @@ namespace AlogService
             bool flag = false;
 
             devCon.EnableDevice(iMachineNumber, false);
+            devCon.RefreshData(iMachineNumber);
             if (!devCon.SSR_GetUserInfo(iMachineNumber, sEnrollNumber , out strName, out strPassword, out iPrivilege, out bEnabled))//upload the user's information(card number included)
             {
                 logger.Write($"User {sEnrollNumber} does not exists on machine.");

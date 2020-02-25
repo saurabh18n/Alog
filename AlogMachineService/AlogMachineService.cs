@@ -45,16 +45,24 @@ namespace AlogMachineService
                 if (isConnected)
                 {
                     CheckMachineConnectedTimer.Stop();
-                    if (!TDecvice.devCon.ReadRTLog(1))
+                    try
                     {
-                        isConnected = false;                        
-                        log.Write("Device Connection Lost. Trying to reconnect device");                        
-                        connect();
+                        if (!TDecvice.devCon.ReadRTLog(1))
+                        {
+                            isConnected = false;
+                            log.Write("Device Connection Lost. Trying to reconnect device");
+                            connect();
+                        }
+
                     }
-                    else
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                    finally
                     {
                         CheckMachineConnectedTimer.Start();
-
                     }
                 }
 
@@ -115,14 +123,8 @@ namespace AlogMachineService
                                     }
 
                                 }
-                            
-
-
-
-
 
                             dbAccess.SetTerminalUpdate(dt); //Update the result to db.
-
                         }
 
                     }
@@ -134,7 +136,6 @@ namespace AlogMachineService
                     {
                         TerminalUpdateTimer.Start();
                     }
-                    
                 }
                 else
                 {
