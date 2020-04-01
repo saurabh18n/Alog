@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Btn_genSave = new System.Windows.Forms.Button();
             this.Btn_changeControlFont = new System.Windows.Forms.Button();
             this.label_controlFont = new System.Windows.Forms.Label();
             this.cb_textDirection = new System.Windows.Forms.ComboBox();
@@ -67,7 +68,6 @@
             this.btn_saveTemplet = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.fontDialog_control = new System.Windows.Forms.FontDialog();
-            this.Btn_genSave = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -106,6 +106,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // Btn_genSave
+            // 
+            this.Btn_genSave.Location = new System.Drawing.Point(253, 143);
+            this.Btn_genSave.Name = "Btn_genSave";
+            this.Btn_genSave.Size = new System.Drawing.Size(75, 30);
+            this.Btn_genSave.TabIndex = 18;
+            this.Btn_genSave.Text = "Save";
+            this.Btn_genSave.UseVisualStyleBackColor = true;
+            this.Btn_genSave.Click += new System.EventHandler(this.Btn_genSave_Click);
             // 
             // Btn_changeControlFont
             // 
@@ -167,6 +177,7 @@
             this.cb_refreshRate.Name = "cb_refreshRate";
             this.cb_refreshRate.Size = new System.Drawing.Size(162, 21);
             this.cb_refreshRate.TabIndex = 3;
+            this.cb_refreshRate.SelectedIndexChanged += new System.EventHandler(this.cb_refreshRate_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -565,16 +576,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(339, 176);
             this.panel2.TabIndex = 17;
-            // 
-            // Btn_genSave
-            // 
-            this.Btn_genSave.Location = new System.Drawing.Point(253, 143);
-            this.Btn_genSave.Name = "Btn_genSave";
-            this.Btn_genSave.Size = new System.Drawing.Size(75, 30);
-            this.Btn_genSave.TabIndex = 18;
-            this.Btn_genSave.Text = "Save";
-            this.Btn_genSave.UseVisualStyleBackColor = true;
-            this.Btn_genSave.Click += new System.EventHandler(this.Btn_genSave_Click);
             // 
             // Uc_settings
             // 

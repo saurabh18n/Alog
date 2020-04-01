@@ -19,7 +19,7 @@ namespace AlogMachineService
         const string timeFormat = "dd-MM-yyyy hh:mm:ss.fff";
         Log log = Log.Instance;
         DbAccess dbAccess = new DbAccess(ConfigurationManager.ConnectionStrings["default"], Log.Instance);
-        public SDKHelper TDecvice = new SDKHelper(Log.Instance); // TimeDox Device
+        public SDKHelper TDevice = new SDKHelper(Log.Instance); // TimeDox Device
         bool sqlSuccess = false;
         private bool isConnected = false;
         System.Timers.Timer pingTimer;
@@ -47,7 +47,7 @@ namespace AlogMachineService
                     CheckMachineConnectedTimer.Stop();
                     try
                     {
-                        if (!TDecvice.devCon.ReadRTLog(1))
+                        if (!TDevice.devCon.ReadRTLog(1))
                         {
                             isConnected = false;
                             log.Write("Device Connection Lost. Trying to reconnect device");
@@ -76,8 +76,7 @@ namespace AlogMachineService
             TerminalUpdateTimer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) => {
                 
                 if (isConnected)
-                {
-                    
+                {                   
                     DataTable dt = new DataTable();
                     dt = dbAccess.GetTerminalUpdate();
                     log.Write($"Processing  {dt.Rows.Count} Terminal Updates");
@@ -89,13 +88,13 @@ namespace AlogMachineService
                             // u_type 1 add,2 delete,3 update
                             if(dt.Rows.Count > 1)
                             {
-
+                                TDevice.devCon.BeginBatchUpdate(1, 1);
                             }
                             foreach (DataRow Row in dt.Rows)
                                 {
                                     if ((byte)Row[1] == 1 || (byte)Row[1] == 3) //Add / Modily Student
                                     {
-                                        if (TDecvice.AddUser(((int)Row[2]).ToString(), (string)Row[3]))
+                                        if (TDevice.AddUser(((int)Row[2]).ToString(), (string)Row[3]))
                                         {
                                             Row[4] = DateTime.Now;
                                             log.Write($"Student with Sid { ((int)Row[2]).ToString()}  Successfully added to Clock");
@@ -104,14 +103,14 @@ namespace AlogMachineService
                                     }
                                     else if ((byte)Row[1] == 2)// Delete Student
                                     {
-                                        if (TDecvice.DeleteUser(((int)Row[2]).ToString()))
+                                        if (TDevice.DeleteUser(((int)Row[2]).ToString()))
                                         {
                                             Row[4] = DateTime.Now;
                                             log.Write($"User with id {(int)Row[2]} Successfully Deleted From Clock");
                                         }
                                         else
                                         {
-                                            if (!TDecvice.isUserExist(((int)Row[2]).ToString()))
+                                            if (!TDevice.isUserExist(((int)Row[2]).ToString()))
                                             {
                                                 Row[4] = DateTime.Now;
                                             }
@@ -123,8 +122,20 @@ namespace AlogMachineService
                                     }
 
                                 }
+                            if (dt.Rows.Count > 1)
+                            {
+                                if (TDevice.devCon.BatchUpdate(1))
+                                {
+                                    TDevice.devCon.RefreshData(1);
+                                    dbAccess.SetTerminalUpdate(dt); //Update the result to db.
+                                }
+                                else
+                                {
 
-                            dbAccess.SetTerminalUpdate(dt); //Update the result to db.
+                                    log.Write("Error Updating in Batch" + TDevice.getlastError().ToString());
+                                }
+                            }
+                            
                         }
 
                     }
@@ -149,11 +160,11 @@ namespace AlogMachineService
         private void connect() // Connect Device
         {
             log.Write("Trying to Connect to device ....");
-            if (TDecvice.Connect(deviceip, deviceport))
+            if (TDevice.Connect(deviceip, deviceport))
             {
 
-                this.TDecvice.devCon.OnAttTransactionEx += new zkemkeeper._IZKEMEvents_OnAttTransactionExEventHandler(devCon_OnAttTransactionEx);
-                this.TDecvice.devCon.OnDisConnected += new zkemkeeper._IZKEMEvents_OnDisConnectedEventHandler(devCon_OnDisconnected);
+                this.TDevice.devCon.OnAttTransactionEx += new zkemkeeper._IZKEMEvents_OnAttTransactionExEventHandler(devCon_OnAttTransactionEx);
+                this.TDevice.devCon.OnDisConnected += new zkemkeeper._IZKEMEvents_OnDisConnectedEventHandler(devCon_OnDisconnected);
                 isConnected = true;
                 CheckMachineConnectedTimer.Start();
             }
@@ -218,7 +229,6 @@ namespace AlogMachineService
             timer.Stop();
             timer.Start();
         }
-
     }
 
     public sealed class Log

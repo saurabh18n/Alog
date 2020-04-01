@@ -455,6 +455,70 @@ namespace AlogMachineService
 
         #region UserInfo
 
+        public bool AddUser(string sEnrollNumber, string sName)
+        {
+            #region Oldfun
+            //int iPIN2Width = 0;
+            //int iIsABCPinEnable = 0;
+            //int iT9FunOn = 0;
+            //string strTemp = "";
+            //devCon.GetSysOption(iMachineNumber, "~PIN2Width", out strTemp);
+            //iPIN2Width = Convert.ToInt32(strTemp);
+            //devCon.GetSysOption(iMachineNumber, "~IsABCPinEnable", out strTemp);
+            //iIsABCPinEnable = Convert.ToInt32(strTemp);
+            //devCon.GetSysOption(iMachineNumber, "~T9FunOn", out strTemp);
+            //iT9FunOn = Convert.ToInt32(strTemp);
+            /*
+            devCon.GetDeviceInfo(iMachineNumber, 76, ref iPIN2Width);
+            devCon.GetDeviceInfo(iMachineNumber, 77, ref iIsABCPinEnable);
+            devCon.GetDeviceInfo(iMachineNumber, 78, ref iT9FunOn);
+            */
+
+            //if (txtUserID.Text.Length > iPIN2Width)
+            //{
+            //    //lblOutputInfo.Items.Add("*User ID error! The max length is " + iPIN2Width.ToString());
+            //    return -1022;
+            //}
+
+            //if (iIsABCPinEnable == 0 || iT9FunOn == 0)
+            //{
+            //    if (txtUserID.Text.Substring(0,1) == "0")
+            //    {
+            //        //lblOutputInfo.Items.Add("*User ID error! The first letter can not be as 0");
+            //        return -1022;
+            //    }
+
+            //    foreach (char tempchar in txtUserID.Text.ToCharArray())
+            //    {
+            //        if (!(char.IsDigit(tempchar)))
+            //        {
+            //            //lblOutputInfo.Items.Add("*User ID error! User ID only support digital");
+            //            return -1022;
+            //        }
+            //    }   
+            //}
+            #endregion
+
+            int idwErrorCode = 0;
+            bool returnCode = false;
+
+            devCon.EnableDevice(iMachineNumber, false);
+            devCon.SetStrCardNumber(sEnrollNumber);//Before you using function SetUserInfo,set the card number to make sure you can upload it to the device
+            if (devCon.SSR_SetUserInfo(iMachineNumber, sEnrollNumber, sName, "1234", 0, true))//upload the user's information(card number included)
+            {
+                returnCode = true;
+            }
+            else
+            {
+                devCon.GetLastError(ref idwErrorCode);
+                logger.Write($"Writing user to machine Error for user {sEnrollNumber} {sName} And Error code {idwErrorCode}");
+                returnCode = false;
+            }
+            devCon.RefreshData(iMachineNumber); //the data in the device should be refreshed
+            devCon.EnableDevice(iMachineNumber, true);
+            return returnCode;
+        }
+
         public bool DeleteUser(string enrollNumber)
         {            
             int idwErrorCode = 0;
@@ -474,6 +538,49 @@ namespace AlogMachineService
             }
 
             return returnStatus;
+        }
+
+        public bool isUserExist(string sEnrollNumber)
+        {
+            //int iPIN2Width = 0;
+            //string strTemp = "";
+            //devCon.GetSysOption(iMachineNumber, "~PIN2Width", out strTemp);
+            //iPIN2Width = Convert.ToInt32(strTemp);
+
+            //if (txtUserID.Text.Length > iPIN2Width)
+            //{
+            //    //lblOutputInfo.Items.Add("*User ID error! The max length is " + iPIN2Width.ToString());
+            //    return -1022;
+            //}
+
+            int idwErrorCode = 0;
+            int iPrivilege = 0;
+            string strName = "";
+            string strPassword = "";
+            bool bEnabled = false;
+            bool flag = false;
+
+            devCon.EnableDevice(iMachineNumber, false);
+            devCon.RefreshData(iMachineNumber);
+            if (!devCon.SSR_GetUserInfo(iMachineNumber, sEnrollNumber, out strName, out strPassword, out iPrivilege, out bEnabled))//upload the user's information(card number included)
+            {
+                logger.Write($"User {sEnrollNumber} does not exists on machine.");
+                flag = false;
+            }
+            else
+            {
+                logger.Write($"User {sEnrollNumber} exists on machine.");
+                flag = true;
+            }
+            devCon.EnableDevice(iMachineNumber, true);
+            return flag;
+        }
+
+        public int getlastError()
+        {
+            int idwErrorCode = 0;
+            devCon.GetLastError(ref idwErrorCode);
+            return idwErrorCode;
         }
 
         public int sta_DelUserTmp()
@@ -587,107 +694,7 @@ namespace AlogMachineService
             //}
 
             return 1;
-        }
-
-        public bool AddUser(string sEnrollNumber,string sName)
-        {
-            #region Oldfun
-            //int iPIN2Width = 0;
-            //int iIsABCPinEnable = 0;
-            //int iT9FunOn = 0;
-            //string strTemp = "";
-            //devCon.GetSysOption(iMachineNumber, "~PIN2Width", out strTemp);
-            //iPIN2Width = Convert.ToInt32(strTemp);
-            //devCon.GetSysOption(iMachineNumber, "~IsABCPinEnable", out strTemp);
-            //iIsABCPinEnable = Convert.ToInt32(strTemp);
-            //devCon.GetSysOption(iMachineNumber, "~T9FunOn", out strTemp);
-            //iT9FunOn = Convert.ToInt32(strTemp);
-            /*
-            devCon.GetDeviceInfo(iMachineNumber, 76, ref iPIN2Width);
-            devCon.GetDeviceInfo(iMachineNumber, 77, ref iIsABCPinEnable);
-            devCon.GetDeviceInfo(iMachineNumber, 78, ref iT9FunOn);
-            */
-
-            //if (txtUserID.Text.Length > iPIN2Width)
-            //{
-            //    //lblOutputInfo.Items.Add("*User ID error! The max length is " + iPIN2Width.ToString());
-            //    return -1022;
-            //}
-
-            //if (iIsABCPinEnable == 0 || iT9FunOn == 0)
-            //{
-            //    if (txtUserID.Text.Substring(0,1) == "0")
-            //    {
-            //        //lblOutputInfo.Items.Add("*User ID error! The first letter can not be as 0");
-            //        return -1022;
-            //    }
-
-            //    foreach (char tempchar in txtUserID.Text.ToCharArray())
-            //    {
-            //        if (!(char.IsDigit(tempchar)))
-            //        {
-            //            //lblOutputInfo.Items.Add("*User ID error! User ID only support digital");
-            //            return -1022;
-            //        }
-            //    }   
-            //}
-            #endregion
-
-            int idwErrorCode = 0;
-            bool returnCode = false;
-
-            devCon.EnableDevice(iMachineNumber, false);
-            devCon.SetStrCardNumber(sEnrollNumber);//Before you using function SetUserInfo,set the card number to make sure you can upload it to the device
-            if (devCon.SSR_SetUserInfo(iMachineNumber, sEnrollNumber, sName, "1234", 0, true))//upload the user's information(card number included)
-            {
-                returnCode =  true;
-            }
-            else
-            {
-                devCon.GetLastError(ref idwErrorCode);
-                logger.Write($"Writing user to machine Error for user {sEnrollNumber} {sName} And Error code {idwErrorCode}");
-                returnCode  = false;
-            }
-            devCon.RefreshData(iMachineNumber); //the data in the device should be refreshed
-            devCon.EnableDevice(iMachineNumber, true);
-            return returnCode;
-        }
-
-        public bool isUserExist(string sEnrollNumber)
-        {
-            //int iPIN2Width = 0;
-            //string strTemp = "";
-            //devCon.GetSysOption(iMachineNumber, "~PIN2Width", out strTemp);
-            //iPIN2Width = Convert.ToInt32(strTemp);
-
-            //if (txtUserID.Text.Length > iPIN2Width)
-            //{
-            //    //lblOutputInfo.Items.Add("*User ID error! The max length is " + iPIN2Width.ToString());
-            //    return -1022;
-            //}
-
-            int idwErrorCode = 0;
-            int iPrivilege = 0;
-            string strName = "";
-            string strPassword = "";
-            bool bEnabled = false;
-            bool flag = false;
-
-            devCon.EnableDevice(iMachineNumber, false);
-            devCon.RefreshData(iMachineNumber);
-            if (!devCon.SSR_GetUserInfo(iMachineNumber, sEnrollNumber , out strName, out strPassword, out iPrivilege, out bEnabled))//upload the user's information(card number included)
-            {
-                logger.Write($"User {sEnrollNumber} does not exists on machine.");
-                flag  = false;                
-            }
-            else
-            {
-                logger.Write($"User {sEnrollNumber} exists on machine.");
-                flag = true;
-            }
-            devCon.EnableDevice(iMachineNumber, true);
-            return flag;
-        }
+        }      
 
         public int sta_GetUserVerifyStyle()
         {

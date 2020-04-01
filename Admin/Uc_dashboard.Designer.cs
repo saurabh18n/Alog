@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Syncfusion.Windows.Forms.Gauge.Range range1 = new Syncfusion.Windows.Forms.Gauge.Range();
             Syncfusion.Windows.Forms.Chart.ChartSeries chartSeries1 = new Syncfusion.Windows.Forms.Chart.ChartSeries();
             Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo chartCustomShapeInfo1 = new Syncfusion.Windows.Forms.Chart.ChartCustomShapeInfo();
             Syncfusion.Windows.Forms.Chart.ChartLineInfo chartLineInfo1 = new Syncfusion.Windows.Forms.Chart.ChartLineInfo();
+            Syncfusion.Windows.Forms.Gauge.Range range1 = new Syncfusion.Windows.Forms.Gauge.Range();
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.classPresentChart = new Syncfusion.Windows.Forms.Chart.ChartControl();
             this.panel_serviceStatus = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,7 +48,6 @@
             this.Btn_addControl = new System.Windows.Forms.Button();
             this.RG_student = new Syncfusion.Windows.Forms.Gauge.RadialGauge();
             this.CB_Colntrols = new System.Windows.Forms.ComboBox();
-            this.classPresentChart = new Syncfusion.Windows.Forms.Chart.ChartControl();
             this.panelContainer.SuspendLayout();
             this.panel_serviceStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -72,6 +72,80 @@
             this.panelContainer.Name = "panelContainer";
             this.panelContainer.Size = new System.Drawing.Size(907, 552);
             this.panelContainer.TabIndex = 2;
+            // 
+            // classPresentChart
+            // 
+            this.classPresentChart.BackInterior = new Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.None, System.Drawing.Color.Black, System.Drawing.Color.Transparent);
+            this.classPresentChart.ChartArea.AdjustPlotAreaMargins = Syncfusion.Windows.Forms.Chart.ChartSetMode.None;
+            this.classPresentChart.ChartArea.AutoScale = true;
+            this.classPresentChart.ChartArea.BackInterior = new Syncfusion.Drawing.BrushInfo(System.Drawing.Color.Transparent);
+            this.classPresentChart.ChartArea.CursorLocation = new System.Drawing.Point(0, 0);
+            this.classPresentChart.ChartArea.CursorReDraw = false;
+            this.classPresentChart.ChartInterior = new Syncfusion.Drawing.BrushInfo(System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(212)))), ((int)(((byte)(235))))));
+            this.classPresentChart.CustomPalette = new System.Drawing.Color[] {
+        System.Drawing.Color.FromArgb(((int)(((byte)(176)))), ((int)(((byte)(164)))), ((int)(((byte)(51))))),
+        System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(125)))), ((int)(((byte)(187))))),
+        System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(96)))), ((int)(((byte)(48))))),
+        System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(83)))), ((int)(((byte)(54))))),
+        System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(41)))), ((int)(((byte)(106))))),
+        System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(107)))), ((int)(((byte)(66)))))};
+            this.classPresentChart.DataSourceName = "[none]";
+            this.classPresentChart.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold);
+            this.classPresentChart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(48)))), ((int)(((byte)(133)))));
+            this.classPresentChart.IsWindowLess = false;
+            // 
+            // 
+            // 
+            this.classPresentChart.Legend.Location = new System.Drawing.Point(291, 75);
+            this.classPresentChart.Legend.Visible = false;
+            this.classPresentChart.Localize = null;
+            this.classPresentChart.Location = new System.Drawing.Point(427, 78);
+            this.classPresentChart.Name = "classPresentChart";
+            this.classPresentChart.Palette = Syncfusion.Windows.Forms.Chart.ChartColorPalette.Custom;
+            this.classPresentChart.PrimaryXAxis.DrawGrid = false;
+            this.classPresentChart.PrimaryXAxis.GridLineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.classPresentChart.PrimaryXAxis.LineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.classPresentChart.PrimaryXAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default;
+            this.classPresentChart.PrimaryXAxis.Margin = true;
+            this.classPresentChart.PrimaryXAxis.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.classPresentChart.PrimaryXAxis.Title = "Class";
+            this.classPresentChart.PrimaryXAxis.TitleColor = System.Drawing.SystemColors.ControlText;
+            this.classPresentChart.PrimaryYAxis.ForceZero = true;
+            this.classPresentChart.PrimaryYAxis.GridLineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.classPresentChart.PrimaryYAxis.LineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.classPresentChart.PrimaryYAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default;
+            this.classPresentChart.PrimaryYAxis.Margin = true;
+            this.classPresentChart.PrimaryYAxis.Range = new Syncfusion.Windows.Forms.Chart.MinMaxInfo(0D, 100D, 100D);
+            this.classPresentChart.PrimaryYAxis.RangeType = Syncfusion.Windows.Forms.Chart.ChartAxisRangeType.Set;
+            this.classPresentChart.PrimaryYAxis.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.classPresentChart.PrimaryYAxis.Title = "Present %";
+            this.classPresentChart.PrimaryYAxis.TitleColor = System.Drawing.SystemColors.ControlText;
+            chartSeries1.FancyToolTip.ResizeInsideSymbol = true;
+            chartSeries1.Name = "Default0";
+            chartSeries1.Resolution = 0D;
+            chartSeries1.StackingGroup = "Default Group";
+            chartSeries1.Style.AltTagFormat = "";
+            chartSeries1.Style.DisplayText = true;
+            chartSeries1.Style.DrawTextShape = false;
+            chartSeries1.Style.TextOrientation = Syncfusion.Windows.Forms.Chart.ChartTextOrientation.Down;
+            chartLineInfo1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+            chartLineInfo1.Color = System.Drawing.SystemColors.ControlText;
+            chartLineInfo1.DashPattern = null;
+            chartLineInfo1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            chartLineInfo1.Width = 1F;
+            chartCustomShapeInfo1.Border = chartLineInfo1;
+            chartCustomShapeInfo1.Color = System.Drawing.SystemColors.HighlightText;
+            chartCustomShapeInfo1.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
+            chartSeries1.Style.TextShape = chartCustomShapeInfo1;
+            chartSeries1.Text = "Default0";
+            this.classPresentChart.Series.Add(chartSeries1);
+            this.classPresentChart.Size = new System.Drawing.Size(400, 212);
+            this.classPresentChart.TabIndex = 12;
+            // 
+            // 
+            // 
+            this.classPresentChart.Title.Name = "Default";
+            this.classPresentChart.VisualTheme = "";
             // 
             // panel_serviceStatus
             // 
@@ -286,77 +360,6 @@
             this.CB_Colntrols.TabIndex = 0;
             this.CB_Colntrols.Visible = false;
             // 
-            // classPresentChart
-            // 
-            this.classPresentChart.BackInterior = new Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.None, System.Drawing.Color.Black, System.Drawing.Color.Transparent);
-            this.classPresentChart.ChartArea.AdjustPlotAreaMargins = Syncfusion.Windows.Forms.Chart.ChartSetMode.None;
-            this.classPresentChart.ChartArea.AutoScale = true;
-            this.classPresentChart.ChartArea.BackInterior = new Syncfusion.Drawing.BrushInfo(System.Drawing.Color.Transparent);
-            this.classPresentChart.ChartArea.CursorLocation = new System.Drawing.Point(0, 0);
-            this.classPresentChart.ChartArea.CursorReDraw = false;
-            this.classPresentChart.ChartInterior = new Syncfusion.Drawing.BrushInfo(System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(212)))), ((int)(((byte)(235))))));
-            this.classPresentChart.CustomPalette = new System.Drawing.Color[] {
-        System.Drawing.Color.FromArgb(((int)(((byte)(176)))), ((int)(((byte)(164)))), ((int)(((byte)(51))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(125)))), ((int)(((byte)(187))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(96)))), ((int)(((byte)(48))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(83)))), ((int)(((byte)(54))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(41)))), ((int)(((byte)(106))))),
-        System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(107)))), ((int)(((byte)(66)))))};
-            this.classPresentChart.DataSourceName = "[none]";
-            this.classPresentChart.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold);
-            this.classPresentChart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(48)))), ((int)(((byte)(133)))));
-            this.classPresentChart.IsWindowLess = false;
-            // 
-            // 
-            // 
-            this.classPresentChart.Legend.Location = new System.Drawing.Point(291, 75);
-            this.classPresentChart.Legend.Visible = false;
-            this.classPresentChart.Localize = null;
-            this.classPresentChart.Location = new System.Drawing.Point(427, 78);
-            this.classPresentChart.Name = "classPresentChart";
-            this.classPresentChart.Palette = Syncfusion.Windows.Forms.Chart.ChartColorPalette.Custom;
-            this.classPresentChart.PrimaryXAxis.DrawGrid = false;
-            this.classPresentChart.PrimaryXAxis.GridLineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.classPresentChart.PrimaryXAxis.LineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.classPresentChart.PrimaryXAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default;
-            this.classPresentChart.PrimaryXAxis.Margin = true;
-            this.classPresentChart.PrimaryXAxis.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.classPresentChart.PrimaryXAxis.Title = "Class";
-            this.classPresentChart.PrimaryXAxis.TitleColor = System.Drawing.SystemColors.ControlText;
-            this.classPresentChart.PrimaryYAxis.GridLineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.classPresentChart.PrimaryYAxis.LineType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.classPresentChart.PrimaryYAxis.LogLabelsDisplayMode = Syncfusion.Windows.Forms.Chart.LogLabelsDisplayMode.Default;
-            this.classPresentChart.PrimaryYAxis.Margin = true;
-            this.classPresentChart.PrimaryYAxis.TickColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.classPresentChart.PrimaryYAxis.Title = "Present %";
-            this.classPresentChart.PrimaryYAxis.TitleColor = System.Drawing.SystemColors.ControlText;
-            chartSeries1.FancyToolTip.ResizeInsideSymbol = true;
-            chartSeries1.Name = "Default0";
-            chartSeries1.Resolution = 0D;
-            chartSeries1.StackingGroup = "Default Group";
-            chartSeries1.Style.AltTagFormat = "";
-            chartSeries1.Style.DisplayText = true;
-            chartSeries1.Style.DrawTextShape = false;
-            chartSeries1.Style.TextOrientation = Syncfusion.Windows.Forms.Chart.ChartTextOrientation.Up;
-            chartLineInfo1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            chartLineInfo1.Color = System.Drawing.SystemColors.ControlText;
-            chartLineInfo1.DashPattern = null;
-            chartLineInfo1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            chartLineInfo1.Width = 1F;
-            chartCustomShapeInfo1.Border = chartLineInfo1;
-            chartCustomShapeInfo1.Color = System.Drawing.SystemColors.HighlightText;
-            chartCustomShapeInfo1.Type = Syncfusion.Windows.Forms.Chart.ChartCustomShape.Square;
-            chartSeries1.Style.TextShape = chartCustomShapeInfo1;
-            chartSeries1.Text = "Default0";
-            this.classPresentChart.Series.Add(chartSeries1);
-            this.classPresentChart.Size = new System.Drawing.Size(400, 212);
-            this.classPresentChart.TabIndex = 12;
-            // 
-            // 
-            // 
-            this.classPresentChart.Title.Name = "Default";
-            this.classPresentChart.VisualTheme = "";
-            // 
             // Uc_dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -377,6 +380,7 @@
             this.ResumeLayout(false);
 
         }
+
 
         #endregion
 

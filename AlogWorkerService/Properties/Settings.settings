@@ -14,10 +14,10 @@
       <Value Profile="(Default)">Data Source=NPS-PC\SQLEXPRESS;Initial Catalog=amDB;Integrated Security=True</Value>
     </Setting>
     <Setting Name="accountSid" Type="System.String" Scope="User">
-      <Value Profile="(Default)">AC0641c3363901b6a8971d7c23937528cb</Value>
+      <Value Profile="(Default)">authsid</Value>
     </Setting>
     <Setting Name="authToken" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c7378099baee0d25254262622d34f8fa</Value>
+      <Value Profile="(Default)">authtoken</Value>
     </Setting>
     <Setting Name="fromPhone" Type="System.String" Scope="User">
       <Value Profile="(Default)">"+12015846173"</Value>

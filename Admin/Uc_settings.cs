@@ -68,14 +68,15 @@ namespace AManager
             populateTempletFields();
             initialiseSettingsValue();
             label_controlFont.Text = $"Font: {Properties.Settings.Default.labelFont.Name} {Properties.Settings.Default.labelFont.Size}";
+            cb_refreshRate.SelectedValue = Properties.Settings.Default.refreshInterval;        
         }
 
         private void populateRefreshRate()
         {
             Ds_settings.Tables.Add(new DataTable("dt_refresh"));
-            Ds_settings.Tables["dt_refresh"].Columns.Add("text");
-            Ds_settings.Tables["dt_refresh"].Columns.Add("value");
-            foreach (int item in new int[11] { 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60 })
+            Ds_settings.Tables["dt_refresh"].Columns.Add("text").DataType = typeof(string);
+            Ds_settings.Tables["dt_refresh"].Columns.Add("value").DataType = typeof(int);
+            foreach (int item in new int[19] {2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60 })
             {
                 DataRow dr = Ds_settings.Tables["dt_refresh"].NewRow();
                 dr[0] = item.ToString() + " Seconds";
@@ -186,9 +187,6 @@ namespace AManager
                     MessageBox.Show("Templet Should be At Lease 30 Charector and not more then 299 Charector");
                 }
             }
-
-
-
             Properties.Settings.Default.Save();
         }
 
@@ -312,6 +310,23 @@ namespace AManager
         private void Btn_genSave_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Save();
+        }
+
+        private void cb_refreshRate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_refreshRate.Focused)
+            {
+                try
+                {
+                    Properties.Settings.Default.refreshInterval = (int)cb_refreshRate.SelectedValue;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+
+                } 
+            }
+            
         }
     }
 }

@@ -3,6 +3,10 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Syncfusion.Windows.Forms.Chart;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
+using System.Linq;
 
 namespace AManager
 {
@@ -10,6 +14,9 @@ namespace AManager
     public partial class Uc_dashboard : UserControl
     {
         private bool inEditMode = false;
+
+        System.Timers.Timer updateTimer;
+
         CustomRenderer custom;
         
         public Uc_dashboard()
@@ -23,37 +30,46 @@ namespace AManager
 
         }
 
-        private async void Uc_dashboard_Load(object sender, EventArgs e)
+        private void Uc_dashboard_Load(object sender, EventArgs e)
         {
             CB_Colntrols.SelectedIndex = 0;            
             setControlProperties();
-            InitializeChartData();
             panel_serviceStatus.Resize += Panel_serviceStatus_Resize;
-            await Task.Run(() => updateradiul()).ConfigureAwait(false);
+            Task.Run(() => updateDashboard()).ConfigureAwait(false);
+        }
+
+        private void Uc_dashboard_LostFocus(object sender, EventArgs e)
+        {
+            Console.WriteLine("Lost");
+        }
+
+        private void updateDashboard()
+        {
+            updateradiul();
+            updateTimer = new System.Timers.Timer(Properties.Settings.Default.refreshInterval * 1000);
+            updateTimer.AutoReset = true;
+            updateTimer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e)=> {
+                Console.WriteLine("Updating Dashboard");
+                updateTimer.Stop();
+                try
+                {
+                    updateradiul();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error " + ex.Message);
+                }
+                finally
+                {
+                    updateTimer.Start();
+                }
+            };
+            updateTimer.Start();
         }
 
         private void Panel_serviceStatus_Resize(object sender, EventArgs e)
         {
             MessageBox.Show("Hit");
-        }
-
-        private void updateradiul()
-        {
-            if (this.InvokeRequired)
-            {
-                updateRG update = new updateRG(updateradiul);
-                this.Invoke(update);
-            }
-            else
-            {
-                int presentStudent = 258;
-                RG_student.MaximumValue = 302 * 10;
-                RG_student.MinimumValue = 0;
-                RG_student.MajorDifference = 302;               
-                RG_student.Value = presentStudent;
-                RG_student.Ranges[0].StartValue = 0;
-                RG_student.Ranges[0].EndValue = presentStudent * 10;                
-            }
         }
 
         private void Btn_layoutEditor_Click(object sender, EventArgs e)
@@ -180,21 +196,65 @@ namespace AManager
 
             }
         }
-        private void InitializeChartData()
+
+        private void updateradiul()
         {
-            ChartSeries series = classPresentChart.Series[0];
-            series.Name = "Attandence";
-            series.XAxis.ValueType = ChartValueType.Category;
-            series.Points.Add("1", 80);
-            series.Points.Add("1B", 70);
-            series.Points.Add("2A", 60);
-            series.Points.Add("2", 80);
-            series.Points.Add("3A", 72);
-            series.Points.Add("3", 40);
-            series.Points.Add("5", 65);
-            series.Points.Add("5B", 75);
-            series.Type = ChartSeriesType.Column;            
-            series.Text = series.Name;
+            if (this.InvokeRequired)
+            {
+                updateRG update = new updateRG(updateradiul);
+                this.Invoke(update);
+            }
+            else
+            {
+                using (DataTable dt = new DataTable())
+                {
+                    using (SqlConnection myConn = new SqlConnection(Properties.Settings.Default.connection))
+                    {
+                        using (SqlCommand command = new SqlCommand("sp_get_dashboard_data", myConn))
+                        {
+                            command.CommandType = CommandType.StoredProcedure;
+                            try
+                            {
+                                myConn.Open();
+                                dt.Load(command.ExecuteReader());
+                            }
+                            catch (SqlException ex)
+                            {
+                                MessageBox.Show("SqlError Getting Dashboard Update " + ex.Message);
+                            }
+
+                        }
+                    } 
+
+                    if(dt.Rows.Count > 0)
+                    {
+                        ChartSeries series = classPresentChart.Series[0];
+                        series.Name = "Attandence";
+                        series.XAxis.ValueType = ChartValueType.Category;
+
+                        int totalstudent = 0;
+                        int presentStudent = 0;
+                        series.Points.Clear();
+                        foreach (DataRow Row in dt.Rows)
+                        {
+                            totalstudent += (int)Row[1];
+                            presentStudent += (int)Row[2];                           
+                            series.Points.Add((string)Row[0], ((int)Row[2]*100)/(int)Row[1]);
+                        }
+                        series.Type = ChartSeriesType.Column;
+                        series.Text = series.Name;
+                        RG_student.MaximumValue = totalstudent * 10;
+                        RG_student.MinimumValue = 0;
+                        RG_student.MajorDifference = totalstudent;
+                        RG_student.Value = presentStudent;
+                        RG_student.Ranges[0].StartValue = 0;
+                        RG_student.Ranges[0].EndValue = presentStudent * 10;
+                    }
+                }
+
+                
+            }
         }
+
     }
 }

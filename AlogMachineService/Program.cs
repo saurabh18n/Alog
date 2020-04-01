@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Topshelf;
 
-namespace AlogService
+namespace AlogMachineService
 {
     class Program
     {

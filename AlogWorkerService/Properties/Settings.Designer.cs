@@ -12,7 +12,7 @@ namespace AlogWorkerService.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -47,7 +47,7 @@ namespace AlogWorkerService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("AC0641c3363901b6a8971d7c23937528cb")]
+        [global::System.Configuration.DefaultSettingValueAttribute("authsid")]
         public string accountSid {
             get {
                 return ((string)(this["accountSid"]));
@@ -59,7 +59,7 @@ namespace AlogWorkerService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c7378099baee0d25254262622d34f8fa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("authtoken")]
         public string authToken {
             get {
                 return ((string)(this["authToken"]));
